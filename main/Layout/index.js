@@ -26,7 +26,7 @@ export default observer(function ({ children }) {
     return pug`
       Menu.sidebar
         MenuItem(url='/') App
-        MenuItem(url='/about') About
+        MenuItem(url='/pokemon/form/new') Create Pokemon
     `
   }
 
