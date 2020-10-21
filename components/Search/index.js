@@ -6,8 +6,12 @@ import _ from 'lodash'
 const Search = observer(() => {
   const [inputValue, $inputValue] = useValue()
   const [, $search] = usePage('search')
+  const [, $page] = usePage('page')
 
-  const setSearch = _.throttle(newSearch => $search.set(newSearch), 500)
+  const setSearch = _.throttle(newSearch => {
+    newSearch.length > 2 && $page.set(0)
+    $search.set(newSearch)
+  }, 500)
 
   useEffect(() => {
     if (inputValue && inputValue.length > 2) {
@@ -15,7 +19,6 @@ const Search = observer(() => {
     } else {
       setSearch('')
     }
-    
   }, [inputValue])
 
   return pug`

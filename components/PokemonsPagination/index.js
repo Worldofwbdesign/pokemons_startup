@@ -1,11 +1,14 @@
 import React from 'react'
 import { observer, usePage, useQuery } from 'startupjs'
-import { Pagination } from '@startupjs/ui'
+import { Pagination, Select, Div } from '@startupjs/ui'
 
-export const PAGE_SIZE = 10
+import './index.styl'
+
+const pageSizeList = [10, 20, 40]
 
 const PokemonsPagination = observer(() => {
   const [page = 0, $page] = usePage('page')
+  const [pageSize = 10, $pageSize] = usePage('pageSize')
   const [search] = usePage('search')
   const [selectedItems = []] = usePage('selectedItems')
   const $match = {
@@ -23,12 +26,19 @@ const PokemonsPagination = observer(() => {
   })
 
   return pug`
-    Pagination(
-      variant='compact'
-      page=page
-      pages=Math.ceil(count / PAGE_SIZE)
-      onChangePage=newPage => $page.set(newPage)
-    )
+    Div.root
+      Pagination(
+        variant='compact'
+        page=page
+        pages=Math.ceil(count / pageSize)
+        onChangePage=newPage => $page.set(newPage)
+      )
+      Select.select(
+        value=pageSize
+        onChange=newPageSize => $pageSize.set(newPageSize)
+        options=pageSizeList
+        showEmptyValue=false
+      )
   `
 })
 

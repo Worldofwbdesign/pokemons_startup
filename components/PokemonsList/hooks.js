@@ -1,12 +1,10 @@
 import { usePage, useQuery } from 'startupjs'
-import { PAGE_SIZE } from '../PokemonsPagination'
 
 export const usePokemonsList = () => {
   const [search = ''] = usePage('search')
   const [page = 0] = usePage('page')
+  const [pageSize = 10] = usePage('pageSize')
   const [selectedItems = []] = usePage('selectedItems')
-
-  console.info('search', search)
 
   const query = {
     _type: { $ne: null }
@@ -18,8 +16,8 @@ export const usePokemonsList = () => {
     query.type = { $in: selectedItems }
   }
   query.$sort = { order: 1 }
-  query.$skip = page * PAGE_SIZE
-  query.$limit = PAGE_SIZE
+  query.$skip = page * pageSize
+  query.$limit = pageSize
 
   const [pokemons = [], loading] = useQuery('pokemons', query)
 

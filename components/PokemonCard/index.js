@@ -1,25 +1,24 @@
-import React from 'react';
-import { emit, model } from 'startupjs';
-import { Link, Avatar, H4, Div, Span, Card, Tag, Button } from '@startupjs/ui';
-import { Image } from 'react-native';
+import React from 'react'
+import { emit, model } from 'startupjs'
+import { Avatar, H4, Div, Span, Card, Tag, Button } from '@startupjs/ui'
 
-import './index.styl';
+import './index.styl'
 
 const colorsMap = {
   Water: 'primary',
   Fire: 'warning',
   Electric: 'error',
   Grass: 'success'
-};
+}
 
 const PokemonCard = ({
   fullInfo,
   pokemon: { id, name, avatar, order, type, skills, other }
 }) => {
   const handleDelete = async () => {
-    await model.del('pokemons.' + id);
-    emit('url', '/');
-  };
+    await model.del('pokemons.' + id)
+    emit('url', '/')
+  }
 
   return pug`
     Card.root(
@@ -29,7 +28,7 @@ const PokemonCard = ({
 
       Avatar.avatar(
         src=avatar
-      )
+      )= name
 
       Div.stats
         Span.order # #{order}
@@ -61,7 +60,7 @@ const PokemonCard = ({
           Button.btn(
             onPress=() => emit('url', '/pokemon/' + id)
           ) View details
-  `;
-};
+  `
+}
 
-export default PokemonCard;
+export default PokemonCard
