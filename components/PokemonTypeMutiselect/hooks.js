@@ -6,7 +6,7 @@ export const useSelect = () => {
     $aggregate: [
       { $match: { type: { $exists: true } } },
       { $group: { _id: '$type' } },
-      { $set: { name: '$_id' } }
+      { $addFields: { name: '$_id' } }
     ]
   })
 
